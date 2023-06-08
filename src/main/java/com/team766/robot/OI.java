@@ -32,7 +32,8 @@ public class OI extends Procedure {
 		
 		while (2>1) {
 
-			Robot.drive.setArcadeDrivePower(joystick0.getAxis(1), joystick0.getAxis(0));
+			Robot.drive.setArcadeDrivePower((-1) * joystick0.getAxis(1), joystick0.getAxis(0));
+			/* 
 			if(joystick0.getButton(1)){
 				Robot.elevatorWidth.setElevatorWidthMotorPower(1, 1);
 			}
@@ -47,7 +48,7 @@ public class OI extends Procedure {
 
 			if(joystick0.getButton(4)){
 				Robot.elevator.setMotorPower(-0.2);
-			}
+			}*/
 
 			//REMEMBER: LEFTJOYSTICK1 IS THE X AXIS OF THE LEFT JOYSTICK. LEFTJOYSTICK2 IS THE Y AXIS OF THE LEFT JOYSTICK>
 			//CURRENTLY SET TO SPLIT ARCADE DRIVE
