@@ -15,8 +15,8 @@ import com.team766.robot.procedures.*;
 public class OI extends Procedure {
 	private JoystickReader joystick0;
 
-	private double elevatorUp;
-	private double elevatorsWidth;
+	private double elevatorUp = 0;
+	private double elevatorsWidth = 0;
 
 	public OI() {
 		loggerCategory = Category.OPERATOR_INTERFACE;
@@ -28,13 +28,30 @@ public class OI extends Procedure {
 		context.takeOwnership(Robot.drive);
 		context.takeOwnership(Robot.elevator);
 		context.takeOwnership(Robot.elevatorWidth);
-		//PS4Controller ourPS4 = new PS4Controller(0); // 0 is the USB Port to be used as indicated on the Driver Station, and ourPS4 is the object name of our PS4 controller.
+		
 		
 		while (2>1) {
 
+			Robot.drive.setArcadeDrivePower(joystick0.getAxis(1), joystick0.getAxis(0));
+			if(joystick0.getButton(1)){
+				Robot.elevatorWidth.setElevatorWidthMotorPower(1, 1);
+			}
+
+			if(joystick0.getButton(2)){
+				Robot.elevatorWidth.setElevatorWidthMotorPower(-1, -1);
+			}
+
+			if(joystick0.getButton(3)){
+				Robot.elevator.setMotorPower(0.5);
+			}
+
+			if(joystick0.getButton(4)){
+				Robot.elevator.setMotorPower(-0.2);
+			}
+
 			//REMEMBER: LEFTJOYSTICK1 IS THE X AXIS OF THE LEFT JOYSTICK. LEFTJOYSTICK2 IS THE Y AXIS OF THE LEFT JOYSTICK>
 			//CURRENTLY SET TO SPLIT ARCADE DRIVE
-
+/* 
 			double leftJoystick1 = joystick0.getAxis(1);
 			double leftJoystick2 = joystick0.getAxis(0);
 			// Add driver controls here - make sure to take/release ownership
@@ -46,12 +63,12 @@ public class OI extends Procedure {
 			    "  J0 B1: " + joystick0.getButton(1) +
 			    "  J0 B2: " + joystick0.getButton(2) +
 			    "  J0 B3: " + joystick0.getButton(3));
-**/
+
 			log("J0 A1: " + leftJoystick1);
 			log(" J0 A0:" + leftJoystick2);
 
 			//Robot.drive.setArcadeDrivePower(leftJoystick1, leftJoystick2);
-			Robot.drive.setArcadeDrivePower(leftJoystick1, leftJoystick2);     
+			Robot.drive.setArcadeDrivePower((-1) * leftJoystick1, leftJoystick2);     
 
 
 			if(joystick0.getButton(3)){
@@ -69,15 +86,16 @@ public class OI extends Procedure {
 			if(joystick0.getButton(2)){
 				elevatorsWidth = 1.0;
 			}
-			else if(joystick0.getButton(0)){
+			else if(joystick0.getButton(4)){
 				elevatorsWidth = -1.0;
 			}
 			else{
 				elevatorsWidth = 0.0;
 			}
+
 			Robot.elevatorWidth.setElevatorWidthMotorPower(joystick0.getAxis(2), joystick0.getAxis(5));
 			Robot.elevator.setMotorPower(elevatorUp);
-			log(" Elevator: " + elevatorUp);
+			log(" Elevator: " + elevatorUp);*/
 			context.waitFor(() -> RobotProvider.instance.hasNewDriverStationData());
 		}
 	}
